@@ -27,7 +27,7 @@ class ApiService {
   Future<DivisionsModel> getDivisions() async {
     try {
       Response response = await dio().get(_endPoint + UrlConstants.REGIONS);
-      print(response.data.to);
+      print(response.data);
       return DivisionsModel.fromJson(response.data);
     } on DioError catch (error) {
       throw error.response!.statusCode!;

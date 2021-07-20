@@ -5,7 +5,7 @@ class Regions {
 
   Regions.fromJson(Map<String, dynamic> json) {
     if (json['region'] != null) {
-      region = new List<Region>.empty();
+      region = [];
       json['region'].forEach((v) {
         region?.add(new Region.fromJson(v));
       });
@@ -13,7 +13,7 @@ class Regions {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    var data = <String, dynamic>{};
     if (this.region != null) {
       data['region'] = this.region?.map((v) => v.toJson()).toList();
     }
@@ -27,13 +27,13 @@ class Region {
 
   Region({this.id, this.name});
 
-  Region.fromJson(Map<String, dynamic> json) {
+  Region.fromJson(dynamic json) {
     id = json['id'];
     name = json['name'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    var data = <String, dynamic>{};
     data['id'] = this.id;
     data['name'] = this.name;
     return data;

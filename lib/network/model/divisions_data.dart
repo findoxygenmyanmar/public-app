@@ -10,7 +10,7 @@ class DivisionsData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    var data = <String, dynamic>{};
     data['id'] = this.id;
     data['name'] = this.name;
     return data;

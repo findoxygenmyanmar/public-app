@@ -25,7 +25,7 @@ class DivisionBloc extends Bloc<DivisionEvent, DivisionState> {
     if (event is GetDivision) {
       try {
         int pageToFetch = 1;
-        List<DivisionsData> divisionModel = new List.empty();
+        List<DivisionsData> divisionModel = [];
 
         if (currentState is DivisionLoaded) {
           // pageToFetch = currentState.page! + 1;

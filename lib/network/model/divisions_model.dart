@@ -7,7 +7,7 @@ class DivisionsModel {
 
   DivisionsModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = new List<DivisionsData>.empty();
+      data = [];
       json['data'].forEach((v) {
         data?.add(DivisionsData.fromJson(v));
       });
@@ -15,9 +15,9 @@ class DivisionsModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    var data = <String, dynamic>{};
     if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+      data['data'] = this.data?.map((v) => v.toJson()).toList();
     }
     return data;
   }
