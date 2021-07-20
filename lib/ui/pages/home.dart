@@ -1,6 +1,7 @@
 import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:o2findermyanmar/ui/pages/detail.dart';
 import 'package:o2findermyanmar/ui/pages/location_picker.dart';
 import 'package:o2findermyanmar/ui/widgets/supporter_card.dart';
 
@@ -62,11 +63,16 @@ class _HomeState extends State<Home> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SupporterCard(
-                name: 'Myanmar Rescue Organization',
-                isActive: false,
-                timeago: '19 hours ago',
-                desc: 'Jul 18 09:32 PM ကနောက်ဆုံးဆက်ထားပါတယ် ရှင့် '),
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, Detail.route);
+              },
+              child: SupporterCard(
+                  name: 'Myanmar Rescue Organization',
+                  isActive: false,
+                  timeago: '19 hours ago',
+                  desc: 'Jul 18 09:32 PM ကနောက်ဆုံးဆက်ထားပါတယ် ရှင့် '),
+            ),
             SupporterCard(
                 name: 'ရေကြောင်းရုံး',
                 isActive: false,

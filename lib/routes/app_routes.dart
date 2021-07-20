@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:o2findermyanmar/ui/pages/detail.dart';
 import 'package:o2findermyanmar/ui/pages/home.dart';
 import 'package:o2findermyanmar/ui/pages/location_picker.dart';
 import 'package:o2findermyanmar/ui/splash_screen.dart';
@@ -8,7 +9,8 @@ class AppRoutes {
   static final routes = <String, WidgetBuilder>{
     SplashScreen.route: (BuildContext context) => SplashScreen(),
     LocationPicker.route: (BuildContext context) => LocationPicker(),
-    Home.route: (BuildContext context) => Home()
+    Home.route: (BuildContext context) => Home(),
+    Detail.route: (BuildContext context) => Detail()
     // Login.route: (BuildContext context) => Login(),
     // Home.route: (BuildContext context) => Home(),
     // Profile.route: (BuildContext context) => Profile()

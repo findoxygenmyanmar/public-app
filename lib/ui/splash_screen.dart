@@ -101,6 +101,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void navigate() {
-    Navigator.pushNamed(context, Home.route);
+    Navigator.pushNamed(context, LocationPicker.route);
   }
 }

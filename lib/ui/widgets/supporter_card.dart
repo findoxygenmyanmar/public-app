@@ -102,8 +102,9 @@ class SupporterCard extends StatelessWidget {
                 ],
               ),
               Container(
-                margin: EdgeInsets.only(right: 10.10),
-                padding: EdgeInsets.all(3.5),
+                margin: EdgeInsets.only(right: 18.10),
+                padding:
+                    EdgeInsets.only(left: 4, right: 4, top: 3.4, bottom: 3.5),
                 decoration: BoxDecoration(
                     color: isActive ? Colors.green[50] : Colors.amber[50],
                     borderRadius: BorderRadius.circular(10.10)),
@@ -120,7 +121,6 @@ class SupporterCard extends StatelessWidget {
           ),
           Padding(padding: EdgeInsets.all(5.5)),
           Container(
-            width: mediaQuery.size.width - 20,
             padding: EdgeInsets.only(left: 25.5, right: 25.5, bottom: 25.5),
             child: Text(
               desc,
