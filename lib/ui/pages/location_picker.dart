@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:o2findermyanmar/bloc/division/division_bloc.dart';
+import 'package:o2findermyanmar/bloc/services/services_bloc.dart';
+import 'package:o2findermyanmar/bloc/township/township_bloc.dart';
+import 'package:o2findermyanmar/constant/app_setting.dart';
 import 'package:o2findermyanmar/constant/svg_constant.dart';
 import 'package:o2findermyanmar/network/model/divisions_data.dart';
+import 'package:o2findermyanmar/network/model/township_data.dart';
 import 'package:o2findermyanmar/ui/pages/home.dart';
 import 'package:select_dialog/select_dialog.dart';
 
@@ -22,28 +27,22 @@ class _LocationPickerState extends State<LocationPicker> {
   final _districController = TextEditingController();
   final _townshipController = TextEditingController();
 
-  late String divisionCode;
-  late String districCode;
-  late String townshipCode;
-
-  late int divisionId;
-  late int districId;
-  late int townshipId;
+  int? divisionId;
+  int? townshipId;
   bool isNeedToFill = false;
 
   DivisionsData selectedDivision = DivisionsData(name: "တိုင်း / ပြည်နယ်");
-  // DistricData selectedDistric = DistricData(distric: "ခရိုင်");
-  // TownshipData selectedTownship = TownshipData(townshipName: "မြို့နယ်");
 
-  // DistricBloc districBloc;
-  // TownshipBloc townshipBloc;
-  // CandidateBloc candidateBloc;
+  TownshipData selectedTownship = TownshipData(name: "မြို့နယ်");
+
+  late TownshipBloc townshipBloc;
+  late ServicesBloc servicesBloc;
 
   void initState() {
     super.initState();
-    // districBloc = BlocProvider.of<DistricBloc>(context);
+    townshipBloc = BlocProvider.of<TownshipBloc>(context);
+    servicesBloc = BlocProvider.of<ServicesBloc>(context);
 
-    // townshipBloc = BlocProvider.of<TownshipBloc>(context);
     // candidateBloc = BlocProvider.of<CandidateBloc>(context);
   }
 
@@ -51,7 +50,7 @@ class _LocationPickerState extends State<LocationPicker> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     // districBloc..add(GetDistric(divisionCode: divisionCode));
-    // townshipBloc..add(GetTownship(districCode: districCode));
+    // townshipBloc..add(GetTownship(divisionId: divisionId));
   }
 
   @override
@@ -154,17 +153,19 @@ class _LocationPickerState extends State<LocationPicker> {
                               divisionId = selectedDivision.id!;
 
                               // districBloc..add(ChangeDistricKeyword());
-                              _districController.text = "";
+
                               _townshipController.text = "";
+                              townshipBloc..add(ChangeTownshipKeyword());
+                              townshipBloc
+                                ..add(GetTownship(divisionId: divisionId));
                               // districBloc
                               //   ..add(
                               //       GetDistric(divisionCode: divisionCode));
 
                               // districCode = "";
                               // districId = null;
-                              // townshipId = null;
+                              townshipId = null;
 
-                              // townshipBloc..add(ChangeTownshipKeyword());
                               _townshipController.text = "";
                             });
                           });
@@ -250,78 +251,143 @@ class _LocationPickerState extends State<LocationPicker> {
                     );
                   }),
 
-                  Container(
-                    alignment: AlignmentDirectional.center,
-                    width: mediaQuery.size.width - 36,
-                    height: 65,
-                    margin: EdgeInsets.only(right: 10, left: 10, top: 15),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey,
-                            blurRadius:
-                                0, // has the effect of softening the shadow
-                            offset: Offset(
-                              0, // horizontal, move right 10
-                              0, // vertical, move down 10
+                  //Township Picker
+                  BlocBuilder<TownshipBloc, TownshipState>(
+                    builder: (context, state) {
+                      if (state is TownshipLoading) {
+                        return Container();
+                      }
+                      if (state is TownshipLoaded) {
+                        return InkWell(
+                          onTap: () {
+                            SelectDialog.showModal<TownshipData>(context,
+                                showSearchBox: false,
+                                items: state.townships,
+                                label: 'မြို့နယ်ရွေးချယ်ပါ',
+                                selectedValue: selectedTownship, itemBuilder:
+                                    (BuildContext context, TownshipData item,
+                                        bool isSelected) {
+                              return Container(
+                                decoration: !isSelected
+                                    ? null
+                                    : BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: Colors.white,
+                                        border: Border.all(
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                      ),
+                                child: ListTile(
+                                  selected: isSelected,
+                                  title: Text(item.name!),
+                                ),
+                              );
+                            }, onChange: (TownshipData selected) {
+                              setState(() {
+                                selectedTownship = selected;
+                                _townshipController.text =
+                                    selectedTownship.name!;
+
+                                townshipId = selectedTownship.id;
+                                isNeedToFill = false;
+                              });
+                            });
+                          },
+                          child: Container(
+                            alignment: AlignmentDirectional.center,
+                            width: mediaQuery.size.width - 36,
+                            margin:
+                                EdgeInsets.only(right: 10, left: 10, top: 15),
+                            height: 65,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius:
+                                        0, // has the effect of softening the shadow
+                                    offset: Offset(
+                                      0, // horizontal, move right 10
+                                      0, // vertical, move down 10
+                                    ),
+                                  ),
+                                ]),
+                            child: TextFormField(
+                              enabled: false,
+                              autofocus: false,
+                              controller: _townshipController,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "သင်နေထိုင်ရာ မြို့နယ် ရွေးချယ်ရန်";
+                                }
+                                return null;
+                              },
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                  suffixIcon: Icon(
+                                    LineIcons.mapPin,
+                                    color: Colors.pink[800],
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors
+                                          .transparent, //this has no effect
+                                    ),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderSide: BorderSide(
+                                          color: Colors.transparent)),
+                                  disabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderSide: BorderSide(
+                                          color: Colors.transparent)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderSide: BorderSide(
+                                          color: Colors.transparent)),
+                                  errorBorder: OutlineInputBorder(
+                                      gapPadding: 10,
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderSide: BorderSide(
+                                          color: Colors.transparent)),
+                                  hintText: "မြို့နယ် ရွေးချယ်ပါ",
+                                  errorStyle:
+                                      TextStyle(height: 0, fontSize: 15),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderSide: BorderSide(
+                                          color: Colors.transparent)),
+                                  hintStyle: TextStyle(
+                                      color: Colors.grey.shade500,
+                                      fontWeight: FontWeight.w500)),
+                              keyboardType: TextInputType.number,
                             ),
                           ),
-                        ]),
-                    child: TextFormField(
-                      enabled: false,
-                      autofocus: false,
-                      controller: _districController,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "သင်နေထိုင်ရာ မြို့နယ် ရွေးချယ်ရန်";
-                        }
-                        return null;
-                      },
-                      obscureText: false,
-                      decoration: InputDecoration(
-                          suffixIcon: Icon(
-                            LineIcons.mapMarker,
-                            color: Colors.pink.shade800,
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.transparent, //this has no effect
-                            ),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                              borderSide:
-                                  BorderSide(color: Colors.transparent)),
-                          disabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                              borderSide:
-                                  BorderSide(color: Colors.transparent)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                              borderSide:
-                                  BorderSide(color: Colors.transparent)),
-                          errorBorder: OutlineInputBorder(
-                              gapPadding: 10,
-                              borderRadius: BorderRadius.circular(5.0),
-                              borderSide:
-                                  BorderSide(color: Colors.transparent)),
-                          hintText: "မြို့နယ် ရွေးချယ်ပါ",
-                          errorStyle: TextStyle(height: 0, fontSize: 15),
-                          focusedErrorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                              borderSide:
-                                  BorderSide(color: Colors.transparent)),
-                          hintStyle: TextStyle(
-                              color: Colors.grey.shade500,
-                              fontWeight: FontWeight.w500)),
-                      keyboardType: TextInputType.number,
-                    ),
+                        );
+                      }
+                      return Container();
+                    },
                   ),
 
                   Padding(padding: EdgeInsets.all(15.5)),
+
+                  Visibility(
+                    visible: isNeedToFill,
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        "နေထိုင်ရာဒေသ အပြည့်အစုံရွေးချယ်ရန်လိုအပ်ပါသည်",
+                        style: TextStyle(
+                            color: Colors.pink[800],
+                            fontFamily: "MyanmarSansPro",
+                            fontSize: 16),
+                      ),
+                    ),
+                  ),
                   FractionallySizedBox(
                     widthFactor: 0.8,
                     child: ElevatedButton(
@@ -330,8 +396,43 @@ class _LocationPickerState extends State<LocationPicker> {
                           padding: EdgeInsets.all(15.5),
                           textStyle: const TextStyle(fontSize: 20),
                         ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, Home.route);
+                        onPressed: () async {
+                          if (divisionId != null) {
+                            var _storage = FlutterSecureStorage();
+
+                            await _storage.write(
+                                key: AppSetting.initialDivision,
+                                value: divisionId.toString());
+
+                            await _storage.write(
+                                key: AppSetting.initialTownship,
+                                value: townshipId.toString());
+// //
+                            String? test = await _storage.read(
+                                key: AppSetting.initialDivision);
+                            // print("MYTEST"+test);
+                            await _storage.write(
+                                key: AppSetting.firstTimeAppUse,
+                                value: AppSetting.usedApp);
+
+                            print(selectedDivision.id);
+                            //  print(selectedDistric.id);
+                            print(selectedTownship.id);
+
+                            servicesBloc..add(ChangeServicesKeyword());
+
+                            Navigator.pushNamed(context, Home.route,
+                                arguments: Home(
+                                    divisionId: divisionId,
+                                    townshipId: townshipId));
+                            //  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage(division: selectedDivision.id,distric: selectedDistric.id,township: selectedTownship.id,)));
+
+                          } else {
+                            setState(() {
+                              isNeedToFill = true;
+                            });
+                          }
+                          // Navigator.pushNamed(context, Home.route);
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -356,5 +457,9 @@ class _LocationPickerState extends State<LocationPicker> {
         ),
       ),
     );
+  }
+
+  int square(int value) {
+    return value * value;
   }
 }

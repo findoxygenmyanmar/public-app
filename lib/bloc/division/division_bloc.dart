@@ -5,7 +5,6 @@ import 'package:meta/meta.dart';
 import 'package:o2findermyanmar/network/api_service.dart';
 import 'package:o2findermyanmar/network/model/divisions_data.dart';
 import 'package:o2findermyanmar/network/model/divisions_model.dart';
-
 part 'division_event.dart';
 part 'division_state.dart';
 

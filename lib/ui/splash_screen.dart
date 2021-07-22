@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:o2findermyanmar/constant/app_setting.dart';
 import 'package:o2findermyanmar/constant/svg_constant.dart';
 import 'package:o2findermyanmar/ui/pages/home.dart';
 import 'package:o2findermyanmar/ui/pages/location_picker.dart';
@@ -19,10 +21,14 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   Timer? timer;
 
+  String? _firstTimeUse;
+
+  final _timerDuration = Duration(milliseconds: 0);
+  final _storage = FlutterSecureStorage();
+
   @override
   void initState() {
-    var _duration = const Duration(seconds: 3);
-    Timer(_duration, navigate);
+    delayTime();
     super.initState();
   }
 
@@ -100,7 +106,21 @@ class _SplashScreenState extends State<SplashScreen> {
         )));
   }
 
-  void navigate() {
-    Navigator.pushNamed(context, LocationPicker.route);
+  delayTime() async {
+    await _getStorageData();
+    await Future.delayed(Duration(seconds: 2));
+    return new Timer(_timerDuration, navigateToPage);
+  }
+
+  Future<Null> _getStorageData() async {
+    _firstTimeUse = await _storage.read(key: AppSetting.firstTimeAppUse);
+  }
+
+  void navigateToPage() {
+    if (_firstTimeUse == null || _firstTimeUse != AppSetting.usedApp) {
+      Navigator.pushNamed(context, LocationPicker.route);
+    } else {
+      Navigator.pushNamed(context, Home.route);
+    }
   }
 }

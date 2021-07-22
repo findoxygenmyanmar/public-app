@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:o2findermyanmar/bloc/service_detail_bloc/service_detail_bloc.dart';
+import 'package:o2findermyanmar/bloc/services/services_bloc.dart';
+import 'package:o2findermyanmar/bloc/township/township_bloc.dart';
 import 'package:o2findermyanmar/constant/key_constant.dart';
 import 'package:o2findermyanmar/routes/app_routes.dart';
 import 'package:provider/provider.dart';
@@ -46,6 +49,10 @@ class MyApp extends StatelessWidget {
         BlocProvider<DivisionBloc>(
           create: (context) => DivisionBloc()..add(GetDivision()),
         ),
+        BlocProvider<TownshipBloc>(create: (context) => TownshipBloc()),
+        BlocProvider<ServicesBloc>(create: (context) => ServicesBloc()),
+        BlocProvider<ServiceDetailBloc>(
+            create: (context) => ServiceDetailBloc())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

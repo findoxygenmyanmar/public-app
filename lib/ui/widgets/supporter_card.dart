@@ -49,7 +49,7 @@ class SupporterCard extends StatelessWidget {
                       width: 50,
                       height: 50,
                       margin: EdgeInsets.only(
-                          left: 25.5, right: 18.5, bottom: 25.5, top: 25.5),
+                          left: 23.5, right: 17.5, bottom: 25.5, top: 25.5),
                       decoration: BoxDecoration(
                           color: Colors.pink.shade800,
                           borderRadius: BorderRadius.circular(14.3)),
@@ -68,7 +68,7 @@ class SupporterCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        width: mediaQuery.size.width - 196,
+                        width: mediaQuery.size.width - 206,
                         padding: EdgeInsets.all(3.3),
                         child: Text(
                           name,
