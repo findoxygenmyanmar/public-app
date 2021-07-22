@@ -55,11 +55,23 @@ class _HomeState extends State<Home> {
     //       divisionId: widget.divisionId, townshipId: widget.townshipId));
 //    candidateBloc..add(GetCandidate(divisionId: widget.division,districId: widget.distric));
     getInitData();
+    servicesBloc..add(ChangeServicesKeyword());
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    // if (servicesBloc.state is ServicesInitial) {
+    servicesBloc
+      ..add(GetServices(divisionId: _divisionId, townshipId: _townshipId));
+    // }
   }
 
   Future<Null> getInitData() async {
     _divisionId = await _storage.read(key: AppSetting.initialDivision);
     _townshipId = await _storage.read(key: AppSetting.initialTownship);
+
     if (servicesBloc.state is ServicesInitial) {
       servicesBloc
         ..add(GetServices(divisionId: _divisionId, townshipId: _townshipId));
@@ -120,15 +132,15 @@ class _HomeState extends State<Home> {
         resizeToAvoidBottomInset: false,
         body: BlocListener<ServicesBloc, ServicesState>(
           listener: (context, state) {
+            if (state is ServicesLoading) {}
             if (state is ServicesLoaded) {
               _refreshController
                 ..loadComplete()
                 ..refreshCompleted();
-              if (state.loadNoMore!) {
+              if (state.hasReachedMax!) {
                 _refreshController.loadNoData();
               }
             }
-
             if (state is ServicesError) {
               _refreshController
                 ..loadFailed()
@@ -137,14 +149,28 @@ class _HomeState extends State<Home> {
           },
           child: BlocBuilder<ServicesBloc, ServicesState>(
             builder: (context, state) {
+              if (state is ServicesLoading) {
+                return Container(
+                    child: Center(
+                  child: CircularProgressIndicator(),
+                ));
+              }
+
+              if (state is ServicesError) {
+                return Container(
+                  child: Center(
+                    child: Text('Something Went Wrong'),
+                  ),
+                );
+              }
               if (state is ServicesLoaded) {
                 return SmartRefresher(
-                    header: WaterDropHeader(
-                      waterDropColor: Colors.pink.shade800,
-                    ),
                     controller: _refreshController,
                     enablePullUp: true,
                     enablePullDown: true,
+                    header: WaterDropHeader(
+                      waterDropColor: Colors.pink.shade800,
+                    ),
                     onRefresh: () async {
                       servicesBloc
                         ..add(ShowServicesLoading())
@@ -157,30 +183,24 @@ class _HomeState extends State<Home> {
                             divisionId: _divisionId, townshipId: _townshipId));
                     },
                     child: state.services!.length > 0
-                        ? Padding(
-                            padding: EdgeInsets.all(5.5),
-                            child: ListView.builder(
-                                primary: false,
-                                itemCount: state.services!.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return InkWell(
-                                    onTap: () {
-                                      Navigator.pushNamed(context, Detail.route,
-                                          arguments: ScreenArguments(
-                                              state.services![index].id!));
-                                    },
-                                    child: SupporterCard(
-                                        name: state.services![index].name!,
-                                        isActive:
-                                            state.services![index].isActive!,
-                                        timeago:
-                                            state.services![index].timeAgo!,
-                                        desc: state
-                                                .services![index].updatedAt! +
-                                            ' က နောက်ဆုံးဆက်ထားပါတယ် ရှင့်'),
-                                  );
-                                }),
-                          )
+                        ? ListView.builder(
+                            primary: false,
+                            itemCount: state.services!.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context, Detail.route,
+                                      arguments: ScreenArguments(
+                                          state.services![index].id!));
+                                },
+                                child: SupporterCard(
+                                    name: state.services![index].name!,
+                                    isActive: state.services![index].isActive!,
+                                    timeago: state.services![index].timeAgo!,
+                                    desc: state.services![index].updatedAt! +
+                                        ' က နောက်ဆုံးဆက်ထားပါတယ် ရှင့်'),
+                              );
+                            })
                         : Container(
                             child: Center(
                               child: Container(

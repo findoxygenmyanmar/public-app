@@ -306,7 +306,9 @@ class _DetailState extends State<Detail> {
                   Container(
                     margin: EdgeInsets.only(top: 10, left: 20),
                     child: Text(
-                      state.serviceDetailModel!.data!.township!.name!,
+                      state.serviceDetailModel!.data!.township != null
+                          ? state.serviceDetailModel!.data!.township!.name!
+                          : '--',
                       style: TextStyle(
                           fontFamily: 'Pyidaungsu',
                           color: HexColor('#605D73'),

@@ -85,6 +85,7 @@ class SupporterCard extends StatelessWidget {
                           SvgPicture.string(
                             SvgConstant.time,
                             width: 20,
+                            height: 20,
                             color: HexColor('#FFA900'),
                           ),
                           Padding(padding: EdgeInsets.all(2.2)),

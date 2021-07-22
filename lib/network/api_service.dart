@@ -49,13 +49,16 @@ class ApiService {
 
   Future<ServicesModel> getServices(
       String divisionId, String townshipId, int page) async {
+    print('GSOPAGE' + page.toString());
     try {
       if (townshipId == 'null') {
+        print('SOMETHING');
         Response response = await dio().get(_endPoint + UrlConstants.SERVICES,
             queryParameters: {'region': divisionId, 'page': page});
         print(response.data);
         return ServicesModel.fromJson(response.data);
       } else {
+        print('SUPERSOMETHING');
         Response response = await dio().get(_endPoint + UrlConstants.SERVICES,
             queryParameters: {
               'region': divisionId,
@@ -66,6 +69,7 @@ class ApiService {
         return ServicesModel.fromJson(response.data);
       }
     } on DioError catch (error) {
+      print("PAGEERROR" + error.message);
       throw error.response!.statusCode!;
       // print("Exception occured: $error");
     }
