@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cool_alert/cool_alert.dart';
 import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,15 +48,13 @@ class _HomeState extends State<Home> {
   final _storage = FlutterSecureStorage();
   late ServicesBloc servicesBloc;
 
+  String? _firstTimePopup;
+
   void initState() {
     super.initState();
 
     _refreshController = RefreshController();
     servicesBloc = BlocProvider.of<ServicesBloc>(context);
-    // servicesBloc
-    //   ..add(GetServices(
-    //       divisionId: widget.divisionId, townshipId: widget.townshipId));
-//    candidateBloc..add(GetCandidate(divisionId: widget.division,districId: widget.distric));
     getInitData();
     servicesBloc..add(ChangeServicesKeyword());
   }
@@ -73,6 +72,8 @@ class _HomeState extends State<Home> {
   Future<Null> getInitData() async {
     _divisionId = await _storage.read(key: AppSetting.initialDivision);
     _townshipId = await _storage.read(key: AppSetting.initialTownship);
+    _firstTimePopup = await _storage.read(key: AppSetting.popupFirstTime);
+    print('FTP ' + _firstTimePopup.toString());
 
     if (servicesBloc.state is ServicesInitial) {
       servicesBloc
@@ -88,6 +89,25 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration(seconds: 3), () {
+      if (_firstTimePopup == null || _firstTimePopup != AppSetting.usedPopup) {
+        CoolAlert.show(
+            barrierDismissible: false,
+            context: context,
+            title: 'မေတ္တာရပ်ခံခြင်း',
+            text:
+                'ပစ္စည်းစာရင်း၊ စျေးနှုန်း စသည့် အချို့အချက်အလက်များသည် မြေပြင်မှအချက်အလက်များနှင့် အနည်းငယ်ကွဲလွဲမှုရှိနိုင်ပါသည်၊',
+            type: CoolAlertType.info,
+            confirmBtnText: 'လက်ခံပါသည်',
+            onConfirmBtnTap: () async {
+              await _storage.write(
+                  key: AppSetting.popupFirstTime, value: AppSetting.usedPopup);
+
+              Navigator.pop(context);
+            });
+      }
+    });
+
     var mediaQuery = MediaQuery.of(context);
 
     return Scaffold(

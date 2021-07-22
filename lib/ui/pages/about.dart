@@ -42,6 +42,28 @@ class _AboutState extends State<About> {
               Container(
                 margin: EdgeInsets.only(left: 20, bottom: 10),
                 child: Text(
+                  'Version',
+                  style: TextStyle(
+                      fontFamily: 'MyanmarChatu',
+                      color: HexColor('#605D73'),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                child: Text(
+                  '1.0.1',
+                  style: TextStyle(
+                      fontFamily: 'MyanmarSansPro',
+                      color: Colors.black87,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 20, bottom: 10),
+                child: Text(
                   'Application အကြောင်း',
                   style: TextStyle(
                       fontFamily: 'MyanmarChatu',
@@ -53,7 +75,7 @@ class _AboutState extends State<About> {
               Container(
                 margin: EdgeInsets.only(left: 20, right: 20),
                 child: Text(
-                  'Covid 19 ကြောင့် အသက်အန္တရာယ်ရင်ဆိုင်နေရသော မိဘပြည်သူများအတွက်၊ အောက်စီဂျင် ရှာဖွေရာတွင် အထောက်အကူဖြစ်စေရန် ရည်ရွယ်ရေးသားထားပါသည်၊ အောက်စီဂျင် Service အချက်အလက်များကို ကျွန်ုပ်တို့ စေတနာ့ ဝန်ထမ်းများက တတ်နိုင်သလောက် မြေပြင်နှင့် ချိတ်ဆက်၍ အတည်ပြုထားပါသည်၊ သို့သော် ပစ္စည်းစာရင်း၊ စျေးနှုန်း စသည့် အချို့အချက်အလက်များသည် မြေပြင်အချက်များနှင့် အနည်းငယ်ကွဲလွဲမှုရှိနိုင်ပါသည်၊',
+                  'Covid 19 ကြောင့် အသက်အန္တရာယ်ရင်ဆိုင်နေရသော မိဘပြည်သူများအတွက်၊ အောက်စီဂျင် ရှာဖွေရာတွင် အထောက်အကူဖြစ်စေရန် ရည်ရွယ်ရေးသားထားပါသည်၊ အောက်စီဂျင် Service အချက်အလက်များကို ကျွန်ုပ်တို့ စေတနာ့ ဝန်ထမ်းများက တတ်နိုင်သလောက် မြေပြင်နှင့် ချိတ်ဆက်၍ အတည်ပြုထားပါသည်၊ သို့သော် ပစ္စည်းစာရင်း၊ စျေးနှုန်း စသည့် အချို့အချက်အလက်များသည် မြေပြင်မှအချက်အလက်များနှင့် အနည်းငယ်ကွဲလွဲမှုရှိနိုင်ပါသည်၊',
                   style: TextStyle(
                       fontFamily: 'MyanmarSansPro',
                       color: Colors.black87,

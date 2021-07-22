@@ -20,10 +20,10 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   Timer? timer;
+  final _timerDuration = Duration(milliseconds: 0);
 
   String? _firstTimeUse;
 
-  final _timerDuration = Duration(milliseconds: 0);
   final _storage = FlutterSecureStorage();
 
   @override
@@ -118,9 +118,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void navigateToPage() {
     if (_firstTimeUse == null || _firstTimeUse != AppSetting.usedApp) {
-      Navigator.pushNamed(context, LocationPicker.route);
+      Navigator.pushReplacementNamed(context, LocationPicker.route);
     } else {
-      Navigator.pushNamed(context, Home.route);
+      Navigator.pushReplacementNamed(context, Home.route);
     }
   }
 }

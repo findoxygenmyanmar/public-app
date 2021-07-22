@@ -421,7 +421,7 @@ class _LocationPickerState extends State<LocationPicker> {
 
                             servicesBloc..add(ChangeServicesKeyword());
 
-                            Navigator.pushNamed(context, Home.route,
+                            Navigator.pushReplacementNamed(context, Home.route,
                                 arguments: Home(
                                     divisionId: divisionId,
                                     townshipId: townshipId));
