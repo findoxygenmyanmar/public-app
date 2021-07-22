@@ -364,6 +364,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.0"
+  pub_semver:
+    dependency: transitive
+    description:
+      name: pub_semver
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.4.4"
+  pubspec_data:
+    dependency: "direct main"
+    description:
+      name: pubspec_data
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0+2"
   pull_to_refresh:
     dependency: "direct main"
     description:

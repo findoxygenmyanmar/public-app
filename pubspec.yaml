@@ -36,7 +36,9 @@ dependencies:
   flutter_text_drawable: ^1.0.0
   cupertino_icons: ^1.0.2
   url_launcher: ^6.0.9
-  
+  pubspec_data: ^1.0.0+2
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -47,6 +49,7 @@ flutter:
   assets:
     - assets/images/background.png
     - assets/images/oxygen.jpeg
+    - assets/images/team.png
 
   fonts:
     - family: Digital

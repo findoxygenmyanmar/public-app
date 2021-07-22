@@ -7,11 +7,13 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:o2findermyanmar/bloc/services/services_bloc.dart';
 import 'package:o2findermyanmar/constant/app_setting.dart';
+import 'package:o2findermyanmar/ui/pages/about.dart';
 
 import 'package:o2findermyanmar/ui/pages/detail.dart';
 import 'package:o2findermyanmar/ui/pages/location_picker.dart';
 import 'package:o2findermyanmar/ui/widgets/supporter_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:flutter/foundation.dart';
 
 class Home extends StatefulWidget {
   static const String route = '/home';
@@ -87,30 +89,26 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: EasyRichText(
-            "O 2 Finder",
-            patternList: [
-              EasyRichTextPattern(
-                  targetString: '2',
-                  subScript: true,
-                  style: TextStyle(
-                      fontFamily: 'RobotoCondensed',
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14)),
-            ],
-            defaultStyle: TextStyle(
-                fontFamily: 'RobotoCondensed',
+          title: Text(
+            'အောက်စီဂျင် ဝန်ဆောင်မှုများ',
+            style: TextStyle(
+                fontFamily: 'MyanmarHeadOne',
                 color: Colors.grey.shade800,
-                fontWeight: FontWeight.w900,
+                fontWeight: FontWeight.w500,
                 fontSize: 20),
           ),
-          leading: Icon(
-            LineIcons.home,
-            color: Colors.pink[800],
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, About.route);
+            },
+            icon: Icon(
+              LineIcons.infoCircle,
+              color: Colors.pink[800],
+            ),
           ),
           iconTheme: new IconThemeData(color: Colors.pink[800]),
           backgroundColor: Colors.white,
