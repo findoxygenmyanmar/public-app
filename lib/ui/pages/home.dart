@@ -135,7 +135,7 @@ class _HomeState extends State<Home> {
           actions: [
             InkWell(
               onTap: () {
-                Navigator.pushNamed(context, LocationPicker.route);
+                Navigator.pushReplacementNamed(context, LocationPicker.route);
               },
               child: Container(
                 padding: EdgeInsets.only(right: 20),

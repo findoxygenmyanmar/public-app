@@ -243,7 +243,7 @@ class _DetailState extends State<Detail> {
                   Container(
                     margin: EdgeInsets.only(top: 10, left: 20),
                     child: Text(
-                      'သာစည်လမ်းမီးပွိုင့်',
+                      state.serviceDetailModel!.data!.address!,
                       style: TextStyle(
                           fontFamily: 'Pyidaungsu',
                           color: HexColor('#605D73'),
