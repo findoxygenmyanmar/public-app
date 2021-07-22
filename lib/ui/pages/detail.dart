@@ -96,7 +96,7 @@ class _DetailState extends State<Detail> {
                                 state.serviceDetailModel!.data!.name!,
                                 style: TextStyle(
                                     fontFamily: 'MyanmarHeadOne',
-                                    fontSize: 30,
+                                    fontSize: 25,
                                     color: HexColor('#484761')),
                               ),
                             ),
@@ -143,48 +143,7 @@ class _DetailState extends State<Detail> {
                           )),
                     ],
                   ),
-                  Container(
-                    margin: EdgeInsets.only(top: 20, left: 20),
-                    child: Text(
-                      'Remark',
-                      style: TextStyle(
-                          fontFamily: 'RobotoRegular',
-                          color: Colors.black26,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18),
-                    ),
-                  ),
-                  Visibility(
-                    visible: state.serviceDetailModel!.data!.isActive!,
-                    child: Container(
-                      margin: EdgeInsets.only(top: 10, left: 20),
-                      padding: EdgeInsets.all(5.5),
-                      child: Text(
-                        state.serviceDetailModel!.data!.updatedAt! +
-                            ' က နောက်ဆုံးဆက်သွယ်ထားပါတယ်ရှင့်',
-                        style: TextStyle(
-                            fontFamily: 'Pyidaungsu',
-                            color: HexColor('#605D73'),
-                            fontWeight: FontWeight.w900,
-                            fontSize: 20),
-                      ),
-                    ),
-                  ),
-                  Visibility(
-                    visible: !state.serviceDetailModel!.data!.isActive!,
-                    child: Container(
-                      margin: EdgeInsets.only(top: 10, left: 20, right: 8),
-                      child: Text(
-                        state.serviceDetailModel!.data!.updatedAt! +
-                            ' က နောက်ဆုံးဆက်သွယ်ထားပါတယ်ရှင့်၊ အရေးကြီးပါကမိမိသဘောအတိုင်းဆက်သွယ်ကြည့်နိုင်ပါတယ်ရှင့်',
-                        style: TextStyle(
-                            fontFamily: 'Pyidaungsu',
-                            color: HexColor('#605D73'),
-                            fontWeight: FontWeight.w900,
-                            fontSize: 20),
-                      ),
-                    ),
-                  ),
+
                   // Container(
                   //   margin: EdgeInsets.only(top: 20, left: 20),
                   //   child: Text(
@@ -336,6 +295,49 @@ class _DetailState extends State<Detail> {
                           color: HexColor('#605D73'),
                           fontWeight: FontWeight.w900,
                           fontSize: 20),
+                    ),
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.only(top: 20, left: 20),
+                    child: Text(
+                      'Remark',
+                      style: TextStyle(
+                          fontFamily: 'RobotoRegular',
+                          color: Colors.black26,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18),
+                    ),
+                  ),
+                  Visibility(
+                    visible: state.serviceDetailModel!.data!.isActive!,
+                    child: Container(
+                      margin: EdgeInsets.only(top: 10, left: 20),
+                      padding: EdgeInsets.all(5.5),
+                      child: Text(
+                        state.serviceDetailModel!.data!.updatedAt! +
+                            ' က နောက်ဆုံးဆက်သွယ်ထားပါတယ်ရှင့်',
+                        style: TextStyle(
+                            fontFamily: 'Pyidaungsu',
+                            color: HexColor('#605D73'),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 20),
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: !state.serviceDetailModel!.data!.isActive!,
+                    child: Container(
+                      margin: EdgeInsets.only(top: 10, left: 20, right: 8),
+                      child: Text(
+                        state.serviceDetailModel!.data!.updatedAt! +
+                            ' က နောက်ဆုံးဆက်သွယ်ထားပါတယ်ရှင့်၊ အရေးကြီးပါကမိမိသဘောအတိုင်းဆက်သွယ်ကြည့်နိုင်ပါတယ်ရှင့်',
+                        style: TextStyle(
+                            fontFamily: 'Pyidaungsu',
+                            color: HexColor('#605D73'),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 20),
+                      ),
                     ),
                   ),
                 ],
