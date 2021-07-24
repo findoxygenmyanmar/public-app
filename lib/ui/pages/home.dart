@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:cool_alert/cool_alert.dart';
-import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -89,7 +86,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 1), () {
       if (_firstTimePopup == null || _firstTimePopup != AppSetting.usedPopup) {
         CoolAlert.show(
             barrierDismissible: false,

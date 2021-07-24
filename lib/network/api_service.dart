@@ -10,7 +10,7 @@ import 'package:o2findermyanmar/network/model/volunteers_model.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class ApiService {
-  final String _endPoint = "https://www.api.mmc19care.com";
+  final String _endPoint = "https://api.mmc19care.com";
   static Dio dio() {
     Dio dio = Dio();
     dio.interceptors.add(PrettyDioLogger(
