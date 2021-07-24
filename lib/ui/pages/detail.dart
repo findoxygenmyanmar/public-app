@@ -43,11 +43,12 @@ class _DetailState extends State<Detail> {
     var mediaQuery = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           'အသေးစိတ်',
           style: TextStyle(
               fontFamily: 'MyanmarHeadOne',
-              color: Colors.grey.shade800,
+              color: Colors.pink.shade800,
               fontWeight: FontWeight.w500,
               fontSize: 20),
         ),

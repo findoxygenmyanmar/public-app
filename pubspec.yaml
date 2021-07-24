@@ -50,6 +50,8 @@ flutter:
     - assets/images/background.png
     - assets/images/oxygen.jpeg
     - assets/images/team.png
+    - assets/json/oxygen_duration.json
+    - assets/images/time.png
 
   fonts:
     - family: Digital

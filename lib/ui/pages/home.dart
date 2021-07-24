@@ -5,13 +5,16 @@ import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:o2findermyanmar/bloc/services/services_bloc.dart';
 import 'package:o2findermyanmar/constant/app_setting.dart';
+import 'package:o2findermyanmar/constant/svg_constant.dart';
 import 'package:o2findermyanmar/ui/pages/about.dart';
 
 import 'package:o2findermyanmar/ui/pages/detail.dart';
 import 'package:o2findermyanmar/ui/pages/location_picker.dart';
+import 'package:o2findermyanmar/ui/pages/oxygen_duration.dart';
 import 'package:o2findermyanmar/ui/widgets/supporter_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter/foundation.dart';
@@ -147,6 +150,19 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+          // isExtended: true,
+          child: SvgPicture.string(
+            SvgConstant.calculator,
+            color: Colors.white,
+            width: 30,
+          ),
+          backgroundColor: Colors.cyan.shade800,
+          onPressed: () {
+            Navigator.pushNamed(context, OxygenDuration.route);
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         resizeToAvoidBottomInset: false,
         body: BlocListener<ServicesBloc, ServicesState>(
           listener: (context, state) {
