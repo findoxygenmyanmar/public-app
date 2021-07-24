@@ -16,7 +16,7 @@ packages:
     source: hosted
     version: "2.6.1"
   bloc:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: bloc
       url: "https://pub.dartlang.org"
@@ -259,13 +259,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
-  json_annotation:
-    dependency: "direct main"
-    description:
-      name: json_annotation
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.0.1"
   line_icons:
     dependency: "direct main"
     description:
@@ -441,13 +434,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.4"
-  retrofit:
-    dependency: "direct main"
-    description:
-      name: retrofit
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.1"
   select_dialog:
     dependency: "direct main"
     description:

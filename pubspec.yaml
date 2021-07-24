@@ -11,22 +11,18 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  bloc: ^7.0.0
-  flutter_bloc: ^7.0.0
+  flutter_bloc: ^7.0.1
   intl: ^0.17.0
-  hexcolor: ^2.0.3
-  responsive_framework: ^0.1.1
+  hexcolor: ^2.0.4
+  responsive_framework: ^0.1.4
   line_icons: ^2.0.1
   flutter_svg: ^0.22.0
   provider: ^5.0.0
   flutter_secure_storage: ^4.2.0
   shared_preferences: ^2.0.6
-  flutter_html: ^2.1.0
   pull_to_refresh: ^2.0.0
   fluttertoast: ^8.0.7
   logger: ^1.0.0
-  retrofit: ^2.0.1
-  json_annotation: ^4.0.1
   pretty_dio_logger: ^1.1.1
   dio: ^4.0.0
   random_color: ^1.0.5
@@ -34,7 +30,7 @@ dependencies:
   easy_rich_text: ^0.5.7
   colorize_text_avatar: ^1.0.2
   flutter_text_drawable: ^1.0.0
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.3
   url_launcher: ^6.0.9
   pubspec_data: ^1.0.0+2
   cool_alert: ^1.1.0
