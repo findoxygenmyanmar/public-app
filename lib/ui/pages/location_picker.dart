@@ -122,7 +122,7 @@ class _LocationPickerState extends State<LocationPicker> {
                     if (state is DivisionLoaded) {
                       print('DIVISION LOADED');
                       return InkWell(
-                        onTap: () {
+                        onTap: () async {
                           SelectDialog.showModal<DivisionsData>(context,
                               showSearchBox: false,
                               items: state.divisions,

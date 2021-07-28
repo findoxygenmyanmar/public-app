@@ -148,21 +148,20 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, OxygenDuration.route);
+              },
+              child: Container(
+                padding: EdgeInsets.only(right: 20),
+                child: Icon(
+                  LineIcons.calculator,
+                  size: 27,
+                ),
+              ),
+            ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          // isExtended: true,
-          child: SvgPicture.string(
-            SvgConstant.calculator,
-            color: Colors.white,
-            width: 30,
-          ),
-          backgroundColor: Colors.cyan.shade800,
-          onPressed: () {
-            Navigator.pushNamed(context, OxygenDuration.route);
-          },
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         resizeToAvoidBottomInset: false,
         body: BlocListener<ServicesBloc, ServicesState>(
           listener: (context, state) {
